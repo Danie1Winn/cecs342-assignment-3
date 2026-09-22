@@ -1,12 +1,12 @@
-#include "merge_sort.h"         // include template header file
-#include <stdlib.h>             // include standard library for malloc and free
+#include "merge_sort.h"                             // include template header file
+#include <stdlib.h>                                 // include standard library for malloc and free
 
 
 // Helper function, merges adjacent sort subarrays and used pre-allocated heap buffer 'temp' to store merged results
 static void merge(int *a, size_t mid, size_t n, int *temp) {
-    size_t i = 0;               // read left subarray
-    size_t j = mid;             // read right subarray
-    size_t k = 0;               // write cursor for temp buffer
+    size_t i = 0;                                   // read left subarray
+    size_t j = mid;                                 // read right subarray
+    size_t k = 0;                                   // write cursor for temp buffer
 
     // Merge small elements from left and right into temp
     while (i < mid && j < n) {
@@ -32,3 +32,19 @@ static void merge(int *a, size_t mid, size_t n, int *temp) {
         a[idx] = temp[idx];
     }
 }
+
+// 'Divide and conquer' merge sort strategy
+static void merge_sort_recursive(int *a, size_t n, int *temp) {
+    if (n <= 1) {                                   // trivially sort arrays with 0 to 1 elements
+        return;
+    }
+
+    size_t mid = n / 2;                             // split array into two halves
+
+    merge_sort_recursive(a, mid, temp);             // recursively sort left
+
+    merge_sort_recursive(a + mid, n - mid, temp);   // recursively sort right
+
+    merge(a, mid, n, temp);                         // merge sorted halves using temp buffer
+}
+
