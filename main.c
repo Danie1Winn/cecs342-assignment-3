@@ -26,3 +26,29 @@ static void run_test(int *a, size_t n) {
     prinf("Sorted: ");
     print_array(a, n);
 }
+
+int main(void) {
+    // Assignment output format
+    printf("CECS 342 Assignment 3\n");
+    printf("Name: Daniel Winn\n");
+    printf("Algorithm: merge sort, Language: C\n");
+
+    // First test: Empty
+    int arr1[] = {0};
+    run_test(arr1, 0);
+
+    // Second test: Single element
+    int arr2[] = {1};
+    run_test(arr2, 1);
+
+    // Third test: Reverse sort
+    int arr3[] = {3, 2, 1};
+    run_test(arr3, 3);
+
+    // Fourth test: Mixed array w/ duplicates, negative, large integers
+    int arr4[] = {102, -43, 5, 645, 4, 34, -6, 776, 445, 45};
+    size_t len4 = sizeof(arr4) / sizeof(arr4[0]);
+    run_test(arr4, len4);
+
+    return 0;
+}
