@@ -48,3 +48,19 @@ static void merge_sort_recursive(int *a, size_t n, int *temp) {
     merge(a, mid, n, temp);                         // merge sorted halves using temp buffer
 }
 
+// Allocate auxiliary memory, intiate sort
+void merge_sort(int *a, size_t n) {
+    if (a == NULL || n <= 1) {                      // empty, single element, or null pointer
+        return;
+    }
+
+    // Dynamically allocate aux memory when on heap, avoid stack overflow
+    int *temp = (int *)malloc(n * sizeof(int));
+    if (temp == NULL) {
+        return;                                     // safety check for memory allocation
+    }
+
+    merge_sort_recursive(a, n, temp);               // run sort algorithm using temp buffer
+
+    free(temp);                                     // deallocate allocated heap memory
+}
